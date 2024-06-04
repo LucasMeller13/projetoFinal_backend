@@ -1,0 +1,9 @@
+2024-06-04 10:21:34.796004-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDICO" not found (this database is empty); SQL statement:
+select m1_0.id,m1_0.alergias,m1_0.cep,m1_0.email,m1_0.genero,m1_0.idade,m1_0.nome,m1_0.telefone,m1_0.tiposanguineo from medico m1_0 order by m1_0.nome offset ? rows fetch first ? rows only [42104-224]
+2024-06-04 10:21:36.975936-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDICO" not found (this database is empty); SQL statement:
+select m1_0.id,m1_0.alergias,m1_0.cep,m1_0.email,m1_0.genero,m1_0.idade,m1_0.nome,m1_0.telefone,m1_0.tiposanguineo from medico m1_0 order by m1_0.nome offset ? rows fetch first ? rows only [42104-224]
+2024-06-04 10:21:40.175860-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEDICO" not found (this database is empty); SQL statement:
+insert into medico (alergias,cep,email,genero,idade,nome,telefone,tiposanguineo,id) values (?,?,?,?,?,?,?,?,?) [42104-224]
