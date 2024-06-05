@@ -30,13 +30,15 @@ public class MedicoController {
         return medicoService.getMedicoById(id);
     }
 
-    @GetMapping("/{cpf}")
+
+    @GetMapping("/cpf/{cpf}")
     @ResponseStatus(HttpStatus.OK)
     public MedicoDTO getMedicoByCpf(@PathVariable String cpf){
         return medicoService.getMedicoByCpf(cpf);
     }
 
-    @GetMapping("/{crm}")
+
+    @GetMapping("/crm/{crm}")
     @ResponseStatus(HttpStatus.OK)
     public MedicoDTO getMedicoByCrm(@PathVariable String crm){
         return medicoService.getMedicoByCrm(crm);
@@ -46,5 +48,17 @@ public class MedicoController {
     @ResponseStatus(HttpStatus.CREATED)
     public MedicoDTO saveMedico(@RequestBody MedicoDTO medicoDTO){
         return medicoService.saveMedico(medicoDTO);
+    }
+
+    @PatchMapping
+    @ResponseStatus(HttpStatus.OK)
+    public MedicoDTO updateMedico(@RequestBody MedicoDTO medicoDTO){
+        return medicoService.updateMedico(medicoDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public MedicoDTO deleteMedico(@PathVariable UUID id){
+        return medicoService.deleteMedico(id);
     }
 }

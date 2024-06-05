@@ -40,6 +40,7 @@ public class MedicoService {
         return medicoMapper.toDTO(medico.get());
     }
 
+
     public MedicoDTO getMedicoByCpf(String cpf){
         Optional<Medico> medico = medicoRepository.findByCpf(cpf);
         if(medico.isEmpty()) throw new RuntimeException("CPF não encontrado no MedicoRepository");
@@ -60,4 +61,22 @@ public class MedicoService {
 
         return medicoMapper.toDTO(medicoSalvo);
     }
+
+    public MedicoDTO updateMedico(MedicoDTO medicoDTO){
+        Optional<Medico> medico = medicoRepository.findById(medicoDTO.id());
+        if(medico.isEmpty()) throw new RuntimeException("Id não encontrado no MedicoRepository");
+        Medico medidoExistente = medico.get();
+        medicoMapper.updateEntityFromDTO(medicoDTO,medidoExistente);
+        Medico medicoAtualizado = medicoRepository.save(medidoExistente);
+        return medicoMapper.toDTO(medicoAtualizado);
+    }
+
+    public MedicoDTO deleteMedico(UUID id){
+        Optional<Medico> medico = medicoRepository.findById(id);
+        if(medico.isEmpty()) throw new RuntimeException("Id não encontrado no MedicoRepository");
+        medicoRepository.delete(medico.get());
+        return medicoMapper.toDTO(medico.get());
+    }
+
+
 }

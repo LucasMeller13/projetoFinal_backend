@@ -37,4 +37,18 @@ public class MedicoMapper {
                 .especializacao(medicoDTO.especializacao())
                 .crm(medicoDTO.crm()).build();
     }
+
+    public void updateEntityFromDTO(MedicoDTO medicoDTO, Medico medico) {
+        medico.setNome(medicoDTO.nome());
+        medico.setIdade(medicoDTO.idade());
+        medico.setGenero(medicoDTO.genero());
+        medico.setCep(medicoDTO.cep());
+        medico.setCpf(medicoDTO.cpf());
+        medico.setAlergias(medicoDTO.alergias());
+        medico.setTiposanguineo(medicoDTO.tiposanguineo());
+        medico.setTelefone(medicoDTO.telefone());
+        medico.setEmail(medicoDTO.email());
+        medico.setEspecializacao(medicoDTO.especializacao());
+        medico.setCrm(medicoDTO.crm());
+    }
 }
