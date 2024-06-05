@@ -1,7 +1,6 @@
 package projetoFinal.atendimentoMedico.repositorys;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import projetoFinal.atendimentoMedico.dtos.MedicoDTO;
 import projetoFinal.atendimentoMedico.models.Medico;
 
 import java.util.Optional;
