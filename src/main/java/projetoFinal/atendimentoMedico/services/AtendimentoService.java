@@ -14,6 +14,7 @@ import projetoFinal.atendimentoMedico.models.Atendimento;
 import projetoFinal.atendimentoMedico.models.Medico;
 import projetoFinal.atendimentoMedico.repositorys.AtendimentoRepository;
 import projetoFinal.atendimentoMedico.repositorys.MedicoRepository;
+import projetoFinal.atendimentoMedico.repositorys.PacienteRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,12 @@ import java.util.UUID;
 public class AtendimentoService {
     @Autowired
     private AtendimentoRepository atendimentoRepository;
+
+    @Autowired
+    private MedicoRepository medicoRepository;
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
     @Autowired
     private AtendimentoMapper atendimentoMapper;
 
@@ -45,6 +52,9 @@ public class AtendimentoService {
     }
 
     public AtendimentoDTO saveAtendimento(AtendimentoDTO atendimentoDTO){
+        if(medicoRepository.findById(atendimentoDTO.idMedico()).isEmpty()) throw new RuntimeException("IdMedico não encontrado no MedicoRepository");
+        if(pacienteRepository.findById(atendimentoDTO.idPaciente()).isEmpty()) throw new RuntimeException("IdPaciente não encontrado no PacienteRepository");
+
         Atendimento atendimento = atendimentoMapper.toEntity(atendimentoDTO);
         Atendimento atendimentoSalvo = atendimentoRepository.save(atendimento);
 

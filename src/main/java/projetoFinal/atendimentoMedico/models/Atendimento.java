@@ -1,5 +1,6 @@
 package projetoFinal.atendimentoMedico.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +18,9 @@ public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private Medico medico;
-    private Paciente paciente;
+    private UUID idMedico;
+    private UUID idPaciente;
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private Date data;
     private String descricao;
     private String remedios;
