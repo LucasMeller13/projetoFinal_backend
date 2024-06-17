@@ -18,4 +18,10 @@ public class GlobalExceptionHandler {
             return new ApiErrorDTO("Erro de valicao", ex.getObjectName() + ": " + ex.getDefaultMessage(), Instant.now());
         }).toList();
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RuntimeException.class)
+    public ApiErrorDTO handleRuntimeException(RuntimeException exception) {
+        return new ApiErrorDTO("Erro de sistema", exception.getMessage(), Instant.now());
+    }
 }
