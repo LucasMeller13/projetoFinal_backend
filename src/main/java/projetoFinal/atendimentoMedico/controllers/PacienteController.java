@@ -1,5 +1,6 @@
 package projetoFinal.atendimentoMedico.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -40,13 +41,13 @@ public class PacienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PacienteDTO savePaciente(@RequestBody PacienteDTO pacienteDTO){
+    public PacienteDTO savePaciente(@RequestBody @Valid PacienteDTO pacienteDTO){
         return pacienteService.savePaciente(pacienteDTO);
     }
 
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public PacienteDTO updatePaciente(@RequestBody PacienteDTO pacienteDTO){
+    public PacienteDTO updatePaciente(@RequestBody @Valid PacienteDTO pacienteDTO){
         return pacienteService.updatePaciente(pacienteDTO);
     }
 
