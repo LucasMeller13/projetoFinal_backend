@@ -26,81 +26,78 @@ public class DataSeeder {
     @Bean
     CommandLineRunner initDatabase() {
         return args -> {
-            UUID med1 = UUID.randomUUID();
-            UUID med2 = UUID.randomUUID();
-            UUID pac1 = UUID.randomUUID();
-            UUID pac2 = UUID.randomUUID();
+
             MedicoDTO medico1 = new MedicoDTO(
-                    med1,
-                    "Dr. John Doe",
+                    UUID.randomUUID(),
+                    "Carlos Silva",
                     40,
-                    "Male",
+                    "masculino",
                     "12345678",
                     "12345678901",
-                    "555-1234",
-                    "A+",
+                    "lactose",
+                    "a+",
                     "555-2345",
-                    "johndoe@example.com",
-                    "General Practice",
-                    "001"
+                    "carlosilva@example.com",
+                    "Ortopedia",
+                    "1234123"
             );
 
             MedicoDTO medico2 = new MedicoDTO(
-                    med2,
-                    "Dr. Jane Smith",
+                    UUID.randomUUID(),
+                    "Marina Ferreira",
                     35,
-                    "Female",
+                    "feminino",
                     "87654321",
                     "23456789012",
-                    "555-5678",
-                    "O-",
+                    "caseina",
+                    "o-",
                     "555-6789",
-                    "janesmith@example.com",
-                    "Pediatrics",
-                    "002"
+                    "marinaferreira@example.com",
+                    "Pediatria",
+                    "42365423"
             );
 
-            medicoService.saveMedico(medico1);
-            medicoService.saveMedico(medico2);
+            MedicoDTO med1 = medicoService.saveMedico(medico1);
+            MedicoDTO med2 = medicoService.saveMedico(medico2);
 
             PacienteDTO paciente1 = new PacienteDTO(
-                    pac1,
-                    "Alice Johnson",
+                    UUID.randomUUID(),
+                    "Alice Marques",
                     28,
-                    "Female",
+                    "feminino",
                     "89012345",
                     "98765432100",
-                    "No allergies",
-                    "AB+",
+                    " ",
+                    "ab+",
                     "7890-1234",
-                    "alice@example.com"
+                    "alicemarques@example.com"
             );
 
             PacienteDTO paciente2 = new PacienteDTO(
-                    pac2,
-                    "Bob Smith",
+                    UUID.randomUUID(),
+                    "Renato Marcelino",
                     34,
-                    "Male",
+                    "masculino",
                     "12345678",
                     "12345678909",
-                    "Peanuts",
-                    "O-",
+                    "soja",
+                    "o-",
                     "4567-8901",
-                    "bob@example.com"
+                    "renatomarcelino@example.com"
             );
 
-            pacienteService.savePaciente(paciente1);
-            pacienteService.savePaciente(paciente2);
+            PacienteDTO pac1 = pacienteService.savePaciente(paciente1);
+            PacienteDTO pac2 = pacienteService.savePaciente(paciente2);
 
             AtendimentoDTO atendimento1 = new AtendimentoDTO(
                     UUID.randomUUID(),
+                    med1.id(),
+                    pac1.id(),
                     med1,
                     pac1,
-                    medico1,
-                    paciente1,
                     new Date(),
-                    "teste1",
-                    "nada",
+                    "Paciente com febre e dor de cabeça",
+                    "paracetamol",
                     "10.10",
                     "feito",
                     30
@@ -108,20 +105,20 @@ public class DataSeeder {
 
             AtendimentoDTO atendimento2 = new AtendimentoDTO(
                     UUID.randomUUID(),
+                    med2.id(),
+                    pac2.id(),
                     med2,
                     pac2,
-                    medico2,
-                    paciente2,
                     new Date(),
-                    "teste2",
-                    "nada2",
+                    " ",
+                    " ",
                     "20.20",
                     "pendente",
                     0
             );
 
-//            atendimentoService.saveAtendimento(atendimento1);
-//            atendimentoService.saveAtendimento(atendimento2);
+            atendimentoService.saveAtendimento(atendimento1);
+            atendimentoService.saveAtendimento(atendimento2);
         };
     }
 }
