@@ -1,5 +1,6 @@
 package projetoFinal.atendimentoMedico.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,13 +48,13 @@ public class AtendimentoService {
 
     public AtendimentoDTO getAtendimentoById(UUID id){
         Optional<Atendimento> atendimento = atendimentoRepository.findById(id);
-        if(atendimento.isEmpty()) throw new RuntimeException("Id não encontrado no MedicoRepository");
+        if(atendimento.isEmpty()) throw new EntityNotFoundException("Id não encontrado no MedicoRepository");
         return atendimentoMapper.toDTO(atendimento.get());
     }
 
     public AtendimentoDTO saveAtendimento(AtendimentoDTO atendimentoDTO){
-        if(medicoRepository.findById(atendimentoDTO.idMedico()).isEmpty()) throw new RuntimeException("IdMedico não encontrado no MedicoRepository");
-        if(pacienteRepository.findById(atendimentoDTO.idPaciente()).isEmpty()) throw new RuntimeException("IdPaciente não encontrado no PacienteRepository");
+        if(medicoRepository.findById(atendimentoDTO.idMedico()).isEmpty()) throw new EntityNotFoundException("IdMedico não encontrado no MedicoRepository");
+        if(pacienteRepository.findById(atendimentoDTO.idPaciente()).isEmpty()) throw new EntityNotFoundException("IdPaciente não encontrado no PacienteRepository");
 
         Atendimento atendimento = atendimentoMapper.toEntity(atendimentoDTO);
         Atendimento atendimentoSalvo = atendimentoRepository.save(atendimento);
@@ -63,7 +64,7 @@ public class AtendimentoService {
 
     public AtendimentoDTO updateAtendimento(AtendimentoDTO atendimentoDTO){
         Optional<Atendimento> atendimento = atendimentoRepository.findById(atendimentoDTO.id());
-        if(atendimento.isEmpty()) throw new RuntimeException("Id não encontrado no AtendimentoRepository");
+        if(atendimento.isEmpty()) throw new EntityNotFoundException("Id não encontrado no AtendimentoRepository");
         Atendimento atendimentoExistente = atendimento.get();
         atendimentoMapper.updateEntityFromDTO(atendimentoDTO,atendimentoExistente);
         Atendimento atendimentoAtualizado = atendimentoRepository.save(atendimentoExistente);
@@ -72,7 +73,7 @@ public class AtendimentoService {
 
     public AtendimentoDTO deleteAtendimento(UUID id){
         Optional<Atendimento> atendimento = atendimentoRepository.findById(id);
-        if(atendimento.isEmpty()) throw new RuntimeException("Id não encontrado no MedicoRepository");
+        if(atendimento.isEmpty()) throw new EntityNotFoundException("Id não encontrado no MedicoRepository");
         atendimentoRepository.delete(atendimento.get());
         return atendimentoMapper.toDTO(atendimento.get());
     }

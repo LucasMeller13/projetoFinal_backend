@@ -1,5 +1,6 @@
 package projetoFinal.atendimentoMedico.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,13 +37,13 @@ public class PacienteService {
 
     public PacienteDTO getPacienteById(UUID id){
         Optional<Paciente> paciente = pacienteRepository.findById(id);
-        if(paciente.isEmpty()) throw new RuntimeException("Id não encontrado no PacienteRepository");
+        if(paciente.isEmpty()) throw new EntityNotFoundException("Id não encontrado no PacienteRepository");
         return pacienteMapper.toDTO(paciente.get());
     }
 
     public PacienteDTO getPacienteByCpf(String cpf){
         Optional<Paciente> paciente = pacienteRepository.findByCpf(cpf);
-        if(paciente.isEmpty()) throw new RuntimeException("CPF não encontrado no PacienteRepository");
+        if(paciente.isEmpty()) throw new EntityNotFoundException("CPF não encontrado no PacienteRepository");
         return pacienteMapper.toDTO(paciente.get());
     }
 
@@ -56,7 +57,7 @@ public class PacienteService {
 
     public PacienteDTO updatePaciente(PacienteDTO pacienteDTO){
         Optional<Paciente> paciente = pacienteRepository.findById(pacienteDTO.id());
-        if(paciente.isEmpty()) throw new RuntimeException("Id não encontrado no PacienteRepository");
+        if(paciente.isEmpty()) throw new EntityNotFoundException("Id não encontrado no PacienteRepository");
         Paciente pacienteExistente = paciente.get();
         pacienteMapper.updateEntityFromDTO(pacienteDTO,pacienteExistente);
         Paciente pacienteAtualizado = pacienteRepository.save(pacienteExistente);
@@ -65,7 +66,7 @@ public class PacienteService {
 
     public PacienteDTO deletePaciente(UUID id){
         Optional<Paciente> paciente = pacienteRepository.findById(id);
-        if(paciente.isEmpty()) throw new RuntimeException("Id não encontrado no PacienteRepository");
+        if(paciente.isEmpty()) throw new EntityNotFoundException("Id não encontrado no PacienteRepository");
         pacienteRepository.delete(paciente.get());
         return pacienteMapper.toDTO(paciente.get());
     }

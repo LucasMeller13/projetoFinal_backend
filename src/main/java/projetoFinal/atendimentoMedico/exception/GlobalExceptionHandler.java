@@ -1,5 +1,6 @@
 package projetoFinal.atendimentoMedico.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,9 +20,15 @@ public class GlobalExceptionHandler {
         }).toList();
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(RuntimeException.class)
     public ApiErrorDTO handleRuntimeException(RuntimeException exception) {
         return new ApiErrorDTO("Erro de sistema", exception.getMessage(), Instant.now());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ApiErrorDTO handleEntityNotFoundException(EntityNotFoundException entityNotFoundException) {
+        return new ApiErrorDTO("Erro de sistema", entityNotFoundException.getMessage(), Instant.now());
     }
 }

@@ -1,5 +1,6 @@
 package projetoFinal.atendimentoMedico.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,20 +37,20 @@ public class MedicoService {
 
     public MedicoDTO getMedicoById(UUID id){
         Optional<Medico> medico = medicoRepository.findById(id);
-        if(medico.isEmpty()) throw new RuntimeException("Id não encontrado no MedicoRepository");
+        if(medico.isEmpty()) throw new EntityNotFoundException("Id não encontrado no MedicoRepository");
         return medicoMapper.toDTO(medico.get());
     }
 
 
     public MedicoDTO getMedicoByCpf(String cpf){
         Optional<Medico> medico = medicoRepository.findByCpf(cpf);
-        if(medico.isEmpty()) throw new RuntimeException("CPF não encontrado no MedicoRepository");
+        if(medico.isEmpty()) throw new EntityNotFoundException("CPF não encontrado no MedicoRepository");
         return medicoMapper.toDTO(medico.get());
     }
 
     public MedicoDTO getMedicoByCrm(String crm){
         Optional<Medico> medico = medicoRepository.findByCrm(crm);
-        if(medico.isEmpty()) throw new RuntimeException("CRM não encontrado no MedicoRepository");
+        if(medico.isEmpty()) throw new EntityNotFoundException("CRM não encontrado no MedicoRepository");
         return medicoMapper.toDTO(medico.get());
     }
 
@@ -64,7 +65,7 @@ public class MedicoService {
 
     public MedicoDTO updateMedico(MedicoDTO medicoDTO){
         Optional<Medico> medico = medicoRepository.findById(medicoDTO.id());
-        if(medico.isEmpty()) throw new RuntimeException("Id não encontrado no MedicoRepository");
+        if(medico.isEmpty()) throw new EntityNotFoundException("Id não encontrado no MedicoRepository");
         Medico medidoExistente = medico.get();
         medicoMapper.updateEntityFromDTO(medicoDTO,medidoExistente);
         Medico medicoAtualizado = medicoRepository.save(medidoExistente);
@@ -73,7 +74,7 @@ public class MedicoService {
 
     public MedicoDTO deleteMedico(UUID id){
         Optional<Medico> medico = medicoRepository.findById(id);
-        if(medico.isEmpty()) throw new RuntimeException("Id não encontrado no MedicoRepository");
+        if(medico.isEmpty()) throw new EntityNotFoundException("Id não encontrado no MedicoRepository");
         medicoRepository.delete(medico.get());
         return medicoMapper.toDTO(medico.get());
     }
