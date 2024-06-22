@@ -15,13 +15,9 @@ public class AtendimentoMapper {
 
     @Autowired
     private MedicoService medicoService;
-    @Autowired
-    private MedicoMapper medicoMapper;
 
     @Autowired
     private PacienteService pacienteService;
-    @Autowired
-    private PacienteMapper pacienteMapper;
 
     public AtendimentoDTO toDTO(Atendimento atendimento){
         return new AtendimentoDTO(

@@ -36,7 +36,7 @@ public class DataSeeder {
                     "12345678901",
                     "lactose",
                     "a+",
-                    "555-2345",
+                    "5552345",
                     "carlosilva@example.com",
                     "Ortopedia",
                     "1234123"
@@ -51,7 +51,7 @@ public class DataSeeder {
                     "23456789012",
                     "caseina",
                     "o-",
-                    "555-6789",
+                    "5556789",
                     "marinaferreira@example.com",
                     "Pediatria",
                     "42365423"
@@ -69,7 +69,7 @@ public class DataSeeder {
                     "98765432100",
                     " ",
                     "ab+",
-                    "7890-1234",
+                    "78901234",
                     "alicemarques@example.com"
             );
 
@@ -82,7 +82,7 @@ public class DataSeeder {
                     "12345678909",
                     "soja",
                     "o-",
-                    "4567-8901",
+                    "45678901",
                     "renatomarcelino@example.com"
             );
 

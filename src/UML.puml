@@ -1,0 +1,220 @@
+@startuml
+
+class Paciente {
+    -id : UUID
+    -nome : String
+    -idade : Integer
+    -genero : String
+    -cep : String
+    -cpf : String
+    -alergias : String
+    -tiposanguineo : String
+    -telefone : String
+    -email : String
+}
+
+class Medico {
+    -id : UUID
+    -nome : String
+    -idade : Integer
+    -genero : String
+    -cep : String
+    -cpf : String
+    -alergias : String
+    -tiposanguineo : String
+    -telefone : String
+    -email : String
+    -especializacao : String
+    -crm : String
+}
+
+class Atendimento {
+    -id : UUID
+    -idMedico : UUID
+    -idPaciente : UUID
+    -data : Date
+    -descricao : String
+    -remedios : String
+    -sala : String
+    -status : String
+    -duracao : int
+}
+
+class PacienteDTO {
+    -id : UUID
+    -nome : String
+    -idade : Integer
+    -genero : String
+    -cep : String
+    -cpf : String
+    -alergias : String
+    -tiposanguineo : String
+    -telefone : String
+    -email : String
+}
+
+class MedicoDTO {
+    -id : UUID
+    -nome : String
+    -idade : Integer
+    -genero : String
+    -cep : String
+    -cpf : String
+    -alergias : String
+    -tiposanguineo : String
+    -telefone : String
+    -email : String
+    -especializacao : String
+    -crm : String
+}
+
+class AtendimentoDTO {
+    -id : UUID
+    -idMedico : UUID
+    -idPaciente : UUID
+    -medicoById : MedicoDTO
+    -pacienteById : PacienteDTO
+    -data : Date
+    -descricao : String
+    -remedios : String
+    -sala : String
+    -status : String
+    -duracao : Integer
+}
+
+class PacienteService {
+    -pacienteRepository : PacienteRepository
+    -pacienteMapper : PacienteMapper
+
+    +getAllPacientes(paginas : Integer, resultados : Integer, sortBy : List<String>) : List<PacienteDTO>
+    +getPacienteById(id : UUID) : PacienteDTO
+    +getPacienteByCpf(cpf : String) : PacienteDTO
+    +savePaciente(pacienteDTO : PacienteDTO) : PacienteDTO
+    +updatePaciente(pacienteDTO : PacienteDTO) : PacienteDTO
+    +deletePaciente(id : UUID) : PacienteDTO
+}
+
+class MedicoService {
+    -medicoRepository : MedicoRepository
+    -medicoMapper : MedicoMapper
+
+    +getAllMedicos(paginas : Integer, resultados : Integer, sortBy : List<String>) : List<MedicoDTO>
+    +getMedicoById(id : UUID) : MedicoDTO
+    +getMedicoByCpf(cpf : String) : MedicoDTO
+    +getMedicoByCrm(crm : String) : MedicoDTO
+    +saveMedico(medicoDTO : MedicoDTO) : MedicoDTO
+    +updateMedico(medicoDTO : MedicoDTO) : MedicoDTO
+    +deleteMedico(id : UUID) : MedicoDTO
+}
+
+class AtendimentoService {
+    -atendimentoRepository : AtendimentoRepository
+    -medicoRepository : MedicoRepository
+    -pacienteRepository : PacienteRepository
+    -atendimentoMapper : AtendimentoMapper
+
+    +getAllAtendimentos(paginas : Integer, resultados : Integer, sortBy : List<String>) : List<AtendimentoDTO>
+    +getAtendimentoById(id : UUID) : AtendimentoDTO
+    +saveAtendimento(atendimentoDTO : AtendimentoDTO) : AtendimentoDTO
+    +updateAtendimento(atendimentoDTO : AtendimentoDTO) : AtendimentoDTO
+    +deleteAtendimento(id : UUID) : AtendimentoDTO
+}
+
+interface AtendimentoRepository {
+}
+
+interface MedicoRepository {
+}
+
+interface PacienteRepository {
+}
+
+class PacienteMapper {
+    +toDTO(paciente : Paciente) : PacienteDTO
+    +toEntity(pacienteDTO : PacienteDTO) : Paciente
+    +updateEntityFromDTO(pacienteDTO : PacienteDTO, paciente : Paciente) : void
+}
+
+class MedicoMapper {
+    +toDTO(medico : Medico) : MedicoDTO
+    +toEntity(medicoDTO : MedicoDTO) : Medico
+    +updateEntityFromDTO(medicoDTO : MedicoDTO, medico : Medico) : void
+}
+
+class AtendimentoMapper {
+    -medicoService : MedicoService
+    -pacienteService : PacienteService
+
+    +toDTO(atendimento : Atendimento) : AtendimentoDTO
+    +toEntity(atendimentoDTO : AtendimentoDTO) : Atendimento
+    +updateEntityFromDTO(atendimentoDTO : AtendimentoDTO, atendimento : Atendimento) : void
+}
+
+class AtendimentoController {
+    -atendimentoService : AtendimentoService
+
+    +getAllAtendimentos(paginas : Integer, resultados : Integer, sortBy : List<String>) : List<AtendimentoDTO>
+    +getAtendimentoById(id : UUID) : AtendimentoDTO
+    +saveAtendimento(atendimentoDTO : AtendimentoDTO) : AtendimentoDTO
+    +updateAtendimento(atendimentoDTO : AtendimentoDTO) : AtendimentoDTO
+    +deleteAtendimento(id : UUID) : AtendimentoDTO
+}
+
+class MedicoController {
+    -medicoService : MedicoService
+
+    +getAllMedicos(paginas : Integer, resultados : Integer, sortBy : List<String>) : List<MedicoDTO>
+    +getMedicoById(id : UUID) : MedicoDTO
+    +getMedicoByCpf(cpf : String) : MedicoDTO
+    +getMedicoByCrm(crm : String) : MedicoDTO
+    +saveMedico(medicoDTO : MedicoDTO) : MedicoDTO
+    +updateMedico(medicoDTO : MedicoDTO) : MedicoDTO
+    +deleteMedico(id : UUID) : MedicoDTO
+}
+
+class PacienteController {
+    -pacienteService : PacienteService
+
+    +getAllPacientes(paginas : Integer, resultados : Integer, sortBy : List<String>) : List<PacienteDTO>
+    +getPacienteById(id : UUID) : PacienteDTO
+    +getPacienteByCpf(cpf : String) : PacienteDTO
+    +savePaciente(pacienteDTO : PacienteDTO) : PacienteDTO
+    +updatePaciente(pacienteDTO : PacienteDTO) : PacienteDTO
+    +deletePaciente(id : UUID) : PacienteDTO
+}
+
+class ProjetoController {
+    +getProjetoInfo() : Map<String, Object>
+}
+
+PacienteService --> PacienteRepository : uses
+PacienteService --> PacienteMapper : uses
+
+MedicoService --> MedicoRepository : uses
+MedicoService --> MedicoMapper : uses
+
+AtendimentoService --> AtendimentoRepository : uses
+AtendimentoService --> MedicoRepository : uses
+AtendimentoService --> PacienteRepository : uses
+AtendimentoService --> AtendimentoMapper : uses
+
+AtendimentoMapper --> MedicoService : uses
+AtendimentoMapper --> PacienteService : uses
+
+PacienteController --> PacienteService : uses
+MedicoController --> MedicoService : uses
+AtendimentoController --> AtendimentoService : uses
+
+PacienteMapper --> PacienteDTO : creates
+PacienteMapper --> Paciente : creates
+
+MedicoMapper --> MedicoDTO : creates
+MedicoMapper --> Medico : creates
+
+AtendimentoMapper --> AtendimentoDTO : creates
+AtendimentoMapper --> Atendimento : creates
+
+AtendimentoDTO --> MedicoDTO : contains
+AtendimentoDTO --> PacienteDTO : contains
+
+@enduml

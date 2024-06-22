@@ -35,7 +35,7 @@ public record PacienteDTO(
         String telefone,
 
         @NotBlank( message = "Precisa de um email")
-        @Email
+        @Email(message = "Email precisa ter @")
         String email
 ) {
 }
