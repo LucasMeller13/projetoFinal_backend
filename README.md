@@ -3,12 +3,6 @@
 
 Este documento fornece uma visão geral dos endpoints da API para gerenciar as entidades de atendimento (consultas), paciente e médico, sendo **SpringBoot Java** o framework utilizado.
 
-## Dockerfile
-
-`docker build -t atendimentomedico .`
-
-`docker run -p 8080:8080 atendimentomedico`
-
 ## Base URL
 
 Todos os endpoints possuem o seguinte prefixo:
@@ -223,3 +217,10 @@ http://localhost:8080/
 		]
 	}
   ```
+
+## Dockerfile
+
+`docker build -t atendimentomedico .`
+
+`docker run -p 8080:8080 atendimentomedico`
+
